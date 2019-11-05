@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MapActivity" >
+
+    <fragment
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MapActivity" />
+
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_alignParentBottom="true"
+       android:padding="5sp">
+
+       <ImageButton
+           android:id="@+id/hospital"
+           android:layout_width="50sp"
+           android:layout_height="50sp"
+           android:src="@mipmap/hospital"
+           android:onClick="ShowHospital"
+           android:layout_centerHorizontal="true"/>
+
+       <ImageButton
+           android:id="@+id/cafe"
+           android:layout_width="50sp"
+           android:layout_height="50sp"
+           android:src="@mipmap/cafe"
+           android:layout_toRightOf="@id/hospital"
+           android:layout_marginLeft="7sp"
+           android:onClick="ShowCafe"/>
+
+       <ImageButton
+           android:id="@+id/school"
+           android:layout_width="50sp"
+           android:layout_height="50sp"
+           android:src="@mipmap/school"
+           android:layout_centerHorizontal="true"
+           android:layout_toLeftOf="@id/hospital"
+           android:layout_marginRight="7sp"
+           android:onClick="ShowSchool"/>
+
+       <ImageView
+           android:id="@+id/gas_station"
+           android:layout_width="39sp"
+           android:layout_height="49sp"
+           android:src="@mipmap/fuel"
+           android:layout_centerHorizontal="true"
+           android:layout_toLeftOf="@id/school"
+           android:layout_marginRight="7sp"
+           android:onClick="ShowGasStation"/>
+
+       <ImageView
+           android:id="@+id/gps"
+           android:layout_width="39sp"
+           android:layout_height="39sp"
+           android:src="@drawable/ic_gps_fixed_black_24dp"
+           android:layout_alignParentRight="true"
+           android:layout_centerVertical="true"/>
+    
+
+
+   </RelativeLayout>
+
+</RelativeLayout>
