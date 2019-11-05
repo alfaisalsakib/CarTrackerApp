@@ -232,11 +232,12 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         mMap.clear();
 
         getDeviceLocation();
+        LatLng latLng = new LatLng(latitude,longitude);
 
         String hospital = "hospital" ;
 
         Object transferData[] = new Object[2];
-        GetNearByPlaces getNearByPlaces = new GetNearByPlaces();
+        GetNearByPlaces getNearByPlaces = new GetNearByPlaces(MapActivity.this,latLng);
 
 
         String url = getUrl(latitude,longitude,hospital);
@@ -256,11 +257,12 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         mMap.clear();
 
         getDeviceLocation();
+        LatLng latLng = new LatLng(latitude,longitude);
 
         String cafe = "restaurant" ;
 
         Object transferData[] = new Object[2];
-        GetNearByPlaces getNearByPlaces = new GetNearByPlaces();
+        GetNearByPlaces getNearByPlaces = new GetNearByPlaces(MapActivity.this,latLng);
 
 
         String url = getUrl(latitude,longitude,cafe);
@@ -278,11 +280,12 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         mMap.clear();
 
         getDeviceLocation();
+        LatLng latLng = new LatLng(latitude,longitude);
 
         String school = "school" ;
 
         Object transferData[] = new Object[2];
-        GetNearByPlaces getNearByPlaces = new GetNearByPlaces();
+        GetNearByPlaces getNearByPlaces = new GetNearByPlaces(MapActivity.this,latLng);
 
 
         String url = getUrl(latitude,longitude,school);
@@ -300,10 +303,12 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
         getDeviceLocation();
 
+        LatLng latLng = new LatLng(latitude,longitude);
+
         String gas_station = "gas_station" ;
 
         Object transferData[] = new Object[2];
-        GetNearByPlaces getNearByPlaces = new GetNearByPlaces();
+        GetNearByPlaces getNearByPlaces = new GetNearByPlaces(MapActivity.this,latLng);
 
 
         String url = getUrl(latitude,longitude,gas_station);
@@ -332,7 +337,5 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         return googleURL.toString();
 
     }
-
-
 
 }
