@@ -12,6 +12,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -49,6 +52,11 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
     private int ProximityRadious = 1500;
 
+    private TextView placeName;
+    private TextView distance;
+
+    private LinearLayout linearLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,10 +67,13 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
         mGps = (ImageView) findViewById(R.id.gps);
 
+        placeName = findViewById(R.id.placeName);
+        distance = findViewById(R.id.distance);
+
+        linearLayout = findViewById(R.id.linear_1);
+
         initMap();
         getLocationPermission();
-
-
     }
 
     @Override
@@ -237,7 +248,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         String hospital = "hospital" ;
 
         Object transferData[] = new Object[2];
-        GetNearByPlaces getNearByPlaces = new GetNearByPlaces(MapActivity.this,latLng);
+        GetNearByPlaces getNearByPlaces = new GetNearByPlaces(MapActivity.this,latLng,placeName,distance,linearLayout);
 
 
         String url = getUrl(latitude,longitude,hospital);
@@ -262,7 +273,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         String cafe = "restaurant" ;
 
         Object transferData[] = new Object[2];
-        GetNearByPlaces getNearByPlaces = new GetNearByPlaces(MapActivity.this,latLng);
+        GetNearByPlaces getNearByPlaces = new GetNearByPlaces(MapActivity.this,latLng,placeName,distance,linearLayout);
 
 
         String url = getUrl(latitude,longitude,cafe);
@@ -285,7 +296,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         String school = "school" ;
 
         Object transferData[] = new Object[2];
-        GetNearByPlaces getNearByPlaces = new GetNearByPlaces(MapActivity.this,latLng);
+        GetNearByPlaces getNearByPlaces = new GetNearByPlaces(MapActivity.this,latLng,placeName,distance,linearLayout);
 
 
         String url = getUrl(latitude,longitude,school);
@@ -308,8 +319,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         String gas_station = "gas_station" ;
 
         Object transferData[] = new Object[2];
-        GetNearByPlaces getNearByPlaces = new GetNearByPlaces(MapActivity.this,latLng);
-
+        GetNearByPlaces getNearByPlaces = new GetNearByPlaces(getApplicationContext(),latLng,placeName,distance,linearLayout);
 
         String url = getUrl(latitude,longitude,gas_station);
 
@@ -328,7 +338,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         googleURL.append("&radius=" + ProximityRadious);
         googleURL.append("&type=" + nearByPlace);
         googleURL.append("&sensor=true");
-        googleURL.append("&key=" + "AIzaSyAG5aVTPu1PLmblp_8nXEI5ZYkPenf7NZQ");
+        googleURL.append("&key=" + "AIzaSyC77P6XEsQLIn1UJDcYRbbhlnWSfZL8OqY");
 
         Log.d(TAG, "LatLng: " + latitude + longitude );
         Log.d(TAG, "getUrl: " + googleURL.toString());
@@ -337,5 +347,4 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         return googleURL.toString();
 
     }
-
 }

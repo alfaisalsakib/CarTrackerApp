@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "11386544611",
+    "firebase_url": "https://cartrackerapp-e14a4.firebaseio.com",
+    "project_id": "cartrackerapp-e14a4",
+    "storage_bucket": "cartrackerapp-e14a4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:11386544611:android:1591dfef298fba94ba40d6",
+        "android_client_info": {
+          "package_name": "com.cartracker.cartracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "11386544611-ltj1ce7oo3d1p190hemup8etvsjbaq17.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cartracker.cartracker",
+            "certificate_hash": "f874f06c91b0ad05b8363f5efac7a58f84db03ce"
+          }
+        },
+        {
+          "client_id": "11386544611-vqo8dbbta4fp9mpibb9cbsfphk76g2u3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2SVVpJYnFzbtK1q1L1GY056044W0sT8c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "11386544611-vqo8dbbta4fp9mpibb9cbsfphk76g2u3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

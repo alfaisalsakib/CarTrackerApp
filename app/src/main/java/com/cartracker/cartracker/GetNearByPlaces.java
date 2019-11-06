@@ -5,6 +5,10 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akexorcist.googledirection.DirectionCallback;
@@ -39,9 +43,17 @@ public class GetNearByPlaces extends AsyncTask<Object, String, String> {
     private LatLng CurrentLoc;
     private LatLng latLng;
 
-    public GetNearByPlaces(Context context,LatLng CurrentLoc) {
+    private TextView placeName;
+    private TextView distance;
+
+    private LinearLayout linearLayout;
+
+    public GetNearByPlaces(Context context, LatLng CurrentLoc, TextView placeName, TextView distance, LinearLayout linearLayout) {
         this.context = context;
         this.CurrentLoc = CurrentLoc;
+        this.placeName = placeName;
+        this.distance = distance;
+        this.linearLayout = linearLayout;
     }
 
     @Override
@@ -72,6 +84,7 @@ public class GetNearByPlaces extends AsyncTask<Object, String, String> {
     }
 
     private  void DisplayNearByPlaces(List<HashMap<String,String>> nearbyPlacesList){
+
         for(int i =0;i<nearbyPlacesList.size();i++){
 
             final MarkerOptions markerOptions = new MarkerOptions();
@@ -89,8 +102,6 @@ public class GetNearByPlaces extends AsyncTask<Object, String, String> {
             markerOptions.title(nameOfPlace + " : " + vicinity);
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
 
-            Log.d("there", "onMarkerClick: " + latLng);
-
             mMap.addMarker(markerOptions);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
             mMap.animateCamera(CameraUpdateFactory.zoomTo(14.5f));
@@ -103,28 +114,22 @@ public class GetNearByPlaces extends AsyncTask<Object, String, String> {
                     markerOptions.title(nameOfPlace + " : " + vicinity);
                     markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
                     mMap.addMarker(markerOptions);
-                    calculateDirections(CurrentLoc,marker.getPosition());
 
-                    //Toast.makeText(context,marker.getPosition().toString(),Toast.LENGTH_SHORT).show();
-                    //Log.d("Here", "onMarkerClick: " + marker.getPosition());
-
+                    calculateDirections(CurrentLoc,marker.getPosition(),nameOfPlace + " : " + vicinity);
+                    linearLayout.setVisibility(View.VISIBLE);
                     return false;
                 }
             });
-
-
         }
-
-        //calculateDirections(CurrentLoc,latLng);
     }
 
-    private void calculateDirections(LatLng fromlatLng, LatLng tolatLng) {
+    private void calculateDirections(LatLng fromlatLng, LatLng tolatLng, final String name) {
 
         //AIzaSyA7rf37DfWW1z7BcdfunRfdVKEqbvoQs3Y
 
         //AIzaSyAG5aVTPu1PLmblp_8nXEI5ZYkPenf7NZQ
 
-        GoogleDirection.withServerKey("AIzaSyA7rf37DfWW1z7BcdfunRfdVKEqbvoQs3Y")
+        GoogleDirection.withServerKey("AIzaSyC77P6XEsQLIn1UJDcYRbbhlnWSfZL8OqY")
                 .from(fromlatLng)
                 .to(tolatLng)
                 .alternativeRoute(false)
@@ -134,18 +139,22 @@ public class GetNearByPlaces extends AsyncTask<Object, String, String> {
                     @Override
                     public void onDirectionSuccess(Direction direction, String rawBody) {
                         if (direction.isOK()) {
+
                             List<Step> stepList = direction.getRouteList().get(0).getLegList().get(0).getStepList();
                             String sumDistance = "";
                             float travelledDis = 0;
+
                             for (int i = 0; i < stepList.size(); i++) {
                                 sumDistance = sumDistance + stepList.get(i).getDistance().getValue() + ",";
                                 travelledDis = travelledDis + Float.parseFloat(stepList.get(i).getDistance().getValue());
-
                             }
+
                             travelledDis = travelledDis / 1000;
-                            //Log.d("Total DistanceF ",Float.toString(travelledDis) + " Km");
-                            //distanceTxt.setText(Float.toString(travelledDis) + " Km");
+                            placeName.setText("Name - " + name);
+                            distance.setText("Distance - " + Float.toString(travelledDis) + " Km");
+
                             Route route = direction.getRouteList().get(0);
+
                             ArrayList<PolylineOptions> polylineOptionList = DirectionConverter.createTransitPolyline(context, stepList, 6, Color.BLACK, 3, Color.RED);
                             for (PolylineOptions polylineOption : polylineOptionList) {
                                 mMap.addPolyline(polylineOption);
@@ -154,9 +163,6 @@ public class GetNearByPlaces extends AsyncTask<Object, String, String> {
                             Leg leg = route.getLegList().get(0);
                             ArrayList<LatLng> pointList = leg.getDirectionPoint();
                             zoomRoute(pointList);
-
-                            Toast.makeText(context,"OK",Toast.LENGTH_LONG).show();
-
 
                         } else {
                             // Do something
@@ -188,5 +194,4 @@ public class GetNearByPlaces extends AsyncTask<Object, String, String> {
                 null
         );
     }
-
 }
